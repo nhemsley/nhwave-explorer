@@ -20,7 +20,7 @@ File.foreach(input_file) do |line|
   line_arr = line.split(' ')
 
   points << line_arr.map.with_index(0) do |p, x|
-    [x.to_f, -p.to_f * 100, y.to_f ]
+    [x.to_f, p.to_f, y.to_f ]
   end
 
   # puts point_arr.inspect

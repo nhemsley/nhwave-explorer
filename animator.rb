@@ -6,7 +6,6 @@ require 'wavefront'
 require 'mittsu'
 
 
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 ASPECT = SCREEN_WIDTH.to_f / SCREEN_HEIGHT.to_f
