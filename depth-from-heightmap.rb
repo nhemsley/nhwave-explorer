@@ -16,10 +16,25 @@ img = Magick::ImageList.new(input_file).first
 pixels = img.get_pixels(0,0,img.columns,img.rows)
 
 heights = []
+min = 0
+max = 0
 for i in (0..img.columns-1)
   rowstart = i*img.rows
   row = pixels[rowstart..rowstart+img.rows];
-  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * height_per_percent).to_s.slice(0..5)}
-  # max = Math.max(row.max_by{|p| p.to_hsla[2]})
-  puts row_mapped.join('  ') << "\n"
+  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * -height_per_percent)}#.to_s.slice(0..5)}
+  heights << row_mapped
+  #get the lowest point on the whole depthmap
+  min = [min, row_mapped.min].min
+  max = [max, row_mapped.max].max
 end
+
+sea_level = max * 1.1
+origin = min
+normalized = []
+heights.each do |row|
+
+  normalized_row =  row.map {|height| sea_level - (height - origin)}
+  puts normalized_row.map{|c| c.to_s.slice(0..5)}.join('  ') << "\n"
+end
+
+# heights.map{|row| row.map{|c| c}}
