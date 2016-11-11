@@ -3,6 +3,8 @@ require 'pathname'
 require 'pry'
 require 'wavefront_obj'
 
+require_relative 'environment'
+
 project_dir = Pathname.new(File.absolute_path(File.dirname(__FILE__)))
 
 input_file = ARGV[0]
@@ -20,13 +22,13 @@ File.foreach(input_file) do |line|
   line_arr = line.split(' ')
 
   points << line_arr.map.with_index(0) do |p, x|
-    [x.to_f, p.to_f, y.to_f ]
+    [x.to_f, p.to_f * 30, y.to_f ]
   end
 
   # puts point_arr.inspect
   y = y + 1
 end
 
-mesh.mesh_from_points(points, 5)
+mesh.from_grid(points, 5)
 
 puts mesh.get_raw_data

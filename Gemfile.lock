@@ -1,6 +1,5 @@
-GIT
-  remote: git@github.com:nhemsley/wavefront-obj.git
-  revision: 853a20898e0335d2d93e8601791f76f2d6d54511
+PATH
+  remote: ~/code/wavefront-obj
   specs:
     wavefront-obj (1.0.2)
 
@@ -9,13 +8,7 @@ GEM
   specs:
     byebug (9.0.5)
     coderay (1.1.1)
-    ffi (1.9.14)
     method_source (0.8.2)
-    mittsu (0.1.4)
-      ffi (~> 1.9)
-      opengl-bindings (~> 1.5)
-      rmagick (~> 2.15)
-    opengl-bindings (1.6.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -25,16 +18,14 @@ GEM
       pry (~> 0.10)
     rmagick (2.16.0)
     slop (3.6.0)
-    wavefront (0.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  mittsu
   pry
   pry-byebug
-  wavefront
+  rmagick
   wavefront-obj!
 
 BUNDLED WITH
