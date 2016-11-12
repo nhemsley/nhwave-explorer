@@ -34,5 +34,3 @@ heights.each do |row|
   normalized_row = row.map {|height| sea_level - height}
   puts normalized_row.map{|c| c.to_s.slice(0..5)}.join('  ') << "\n"
 end
-
-# heights.map{|row| row.map{|c| c}}
