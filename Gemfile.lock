@@ -1,8 +1,3 @@
-PATH
-  remote: ~/code/wavefront-obj
-  specs:
-    wavefront-obj (1.0.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -18,6 +13,7 @@ GEM
       pry (~> 0.10)
     rmagick (2.16.0)
     slop (3.6.0)
+    wavefront-obj (1.0.2)
 
 PLATFORMS
   ruby
@@ -26,7 +22,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rmagick
-  wavefront-obj!
+  wavefront-obj
 
 BUNDLED WITH
    1.12.5
