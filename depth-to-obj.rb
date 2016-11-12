@@ -19,22 +19,28 @@ obj_file = input_rel << '.obj'
 mesh = WavefrontObj.new
 mesh.name = "Waves #{input_rel}"
 
-points = []
-y=0
+depths = []
+max_depth = min_depth = 0
+
 File.foreach(input_file) do |line|
-  line_arr = line.split(' ')
+  row_arr = line.split(' ')
 
-  points << line_arr.map.with_index(0) do |depth, x|
-    [x.to_f, depth.to_f, y.to_f ]
-  end
+  row = row_arr.map { |depth| depth.to_f }
 
-  min = [min, row_mapped.min_by{|d| d.depth}].min
-  max = [max, row_mapped.max_by{|d| d.depth}].max
+  depths << row
 
-  # puts point_arr.inspect
-  y = y + 1
+  min_depth = [min_depth, row.min].min
+  max_depth = [max_depth, row.max].min
+
 end
 
-mesh.from_grid(points, 5)
+max_depth = max_depth * 100
+#translate by max_depth to get heights
+# translate = max_depth.to_i * 1.1
+vertices = depths.map.with_index do |row, i|
+  row.map.with_index {|v, j| [i.to_f, -v*100, j.to_f]}
+end
+
+mesh.from_grid(vertices, 5)
 
 puts mesh.get_raw_data

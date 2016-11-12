@@ -12,7 +12,6 @@ height_per_percent = ARGV[1].to_f
 input_rel = File.basename(input_file)
 
 img = Magick::ImageList.new(input_file).first
-# binding.pry
 pixels = img.get_pixels(0,0,img.columns,img.rows)
 
 heights = []
@@ -21,7 +20,7 @@ max = 0
 for i in (0..img.columns-1)
   rowstart = i*img.rows
   row = pixels[rowstart..rowstart+img.rows];
-  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * -height_per_percent)}#.to_s.slice(0..5)}
+  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * height_per_percent)}#.to_s.slice(0..5)}
   heights << row_mapped
   #get the lowest point on the whole depthmap
   min = [min, row_mapped.min].min
@@ -29,11 +28,10 @@ for i in (0..img.columns-1)
 end
 
 sea_level = max * 1.1
-origin = min
 normalized = []
 heights.each do |row|
 
-  normalized_row =  row.map {|height| sea_level - (height - origin)}
+  normalized_row = row.map {|height| sea_level - height}
   puts normalized_row.map{|c| c.to_s.slice(0..5)}.join('  ') << "\n"
 end
 
