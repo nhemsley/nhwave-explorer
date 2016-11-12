@@ -20,12 +20,17 @@ max = 0
 for i in (0..img.columns-1)
   rowstart = i*img.rows
   row = pixels[rowstart..rowstart+img.rows];
-  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * height_per_percent)}#.to_s.slice(0..5)}
+  row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * height_per_percent)}
   heights << row_mapped
-  #get the lowest point on the whole depthmap
+
+  #get the lowest and highest point on the whole depthmap
   min = [min, row_mapped.min].min
   max = [max, row_mapped.max].max
 end
+
+heights.pop
+
+heights = heights.transpose
 
 sea_level = max * 1.1
 normalized = []

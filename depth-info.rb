@@ -5,9 +5,6 @@ require 'wavefront_obj'
 
 require_relative 'environment'
 
-#Converts a nhwave depth.txt file into a wavefront.obj file
-
-
 project_dir = Pathname.new(File.absolute_path(File.dirname(__FILE__)))
 
 input_file = ARGV[0]
@@ -16,11 +13,9 @@ input_rel = File.basename(input_file)
 
 obj_file = input_rel << '.obj'
 
-mesh = WavefrontObj.new
-mesh.name = "Waves #{input_rel}"
-
 depths = []
-max_depth = min_depth = 0
+max_depth = 0
+min_depth = 10
 
 File.foreach(input_file) do |line|
   row_arr = line.split(' ')
@@ -29,18 +24,13 @@ File.foreach(input_file) do |line|
 
   depths << row
 
+
   min_depth = [min_depth, row.min].min
   max_depth = [max_depth, row.max].max
 
 end
 
-max_depth = max_depth * 100
-#translate by max_depth to get heights
-# translate = max_depth.to_i * 1.1
-vertices = depths.map.with_index do |row, i|
-  row.map.with_index {|v, j| [i.to_f, -v*100, j.to_f]}
-end
-
-mesh.from_grid(vertices, 5)
-
-puts mesh.get_raw_data
+  puts "Min Depth: #{min_depth}"
+  puts "Max Depth: #{max_depth}"
+  puts "Rows: #{depths.length}"
+  puts "Columns: #{depths.first.length}"
