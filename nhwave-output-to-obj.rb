@@ -5,9 +5,6 @@ require 'wavefront_obj'
 
 require_relative 'environment'
 
-#Converts a nhwave depth.txt file into a wavefront.obj file
-
-
 project_dir = Pathname.new(File.absolute_path(File.dirname(__FILE__)))
 
 input_file = ARGV[0]
@@ -38,7 +35,7 @@ max_depth = max_depth * 500
 #translate by max_depth to get heights
 # translate = max_depth.to_i * 1.1
 vertices = depths.map.with_index do |row, i|
-  row.map.with_index {|v, j| [i.to_f, -v*500, j.to_f]}
+  row.map.with_index {|v, j| [i.to_f, v*500, j.to_f]}
 end
 
 mesh.from_grid(vertices, 5)

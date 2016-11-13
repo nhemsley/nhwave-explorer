@@ -15,11 +15,11 @@ img = Magick::ImageList.new(input_file).first
 pixels = img.get_pixels(0,0,img.columns,img.rows)
 
 heights = []
-min = 0
+min = 10
 max = 0
 for i in (0..img.columns-1)
   rowstart = i*img.rows
-  row = pixels[rowstart..rowstart+img.rows];
+  row = pixels[rowstart..rowstart+img.rows-1];
   row_mapped =  row.map(&:to_hsla).map{|p| (p[2] * height_per_percent)}
   heights << row_mapped
 
@@ -28,14 +28,10 @@ for i in (0..img.columns-1)
   max = [max, row_mapped.max].max
 end
 
-heights.pop
-
-heights = heights.transpose
-
 sea_level = max * 1.1
 normalized = []
 heights.each do |row|
 
   normalized_row = row.map {|height| sea_level - height}
-  puts normalized_row.map{|c| c.to_s.slice(0..5)}.join('  ') << "\n"
+  puts normalized_row.map{|c| c.to_s.slice(0..5).ljust(6, '0')}.join('  ') << "\n"
 end

@@ -3,3 +3,6 @@ converter/results/*
 converter/results*
 results/*
 test/
+obj/
+nhwave/
+nhwave
