@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'pathname'
-require 'pry'
 require 'wavefront_obj'
 
 require_relative 'environment'
